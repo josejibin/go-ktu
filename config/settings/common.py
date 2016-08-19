@@ -16,7 +16,8 @@ ROOT_DIR = environ.Path(__file__) - 3  # (ktu/config/settings/common.py - 3 = kt
 APPS_DIR = ROOT_DIR.path('ktu')
 
 env = environ.Env()
-
+environ.Env.read_env() # reading .env file
+print (env.str("POSTGRES_PASSWORD"))
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
 DJANGO_APPS = (
@@ -46,6 +47,7 @@ LOCAL_APPS = (
     # custom users app
     'ktu.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'ktu.base',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -102,6 +104,7 @@ DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
     'default': env.db('DATABASE_URL', default='postgres:///ktu'),
 }
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
